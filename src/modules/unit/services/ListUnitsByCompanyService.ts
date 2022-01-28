@@ -13,6 +13,6 @@ export class ListUnitsByCompanyService {
     const company = await this.companyRepository.findById(companyId);
     if (!company) throw new LocaleError('companyNotFound');
 
-    return await this.unitRepository.findAllByCompanyName(company.name);
+    return await this.unitRepository.findByCompanyId(companyId);
   }
 }

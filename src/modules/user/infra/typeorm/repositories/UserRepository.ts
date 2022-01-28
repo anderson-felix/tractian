@@ -31,9 +31,9 @@ export default class UserRepository implements IUserRepository {
     return await this.repository.find({ where: { deleted_at: null } });
   }
 
-  public async findAllByCompanyName(name: string) {
+  public async findByCompanyId(companyId: ObjectID) {
     return await this.repository.find({
-      where: { 'company.name': { $eq: name } },
+      where: { company_id: { $eq: companyId } },
     });
   }
 
@@ -41,13 +41,13 @@ export default class UserRepository implements IUserRepository {
     return await this.repository.find();
   }
 
-  public async findById(id: ObjectID | string) {
+  public async findById(id: ObjectID) {
     return id && isValidObjectId(id)
       ? await this.repository.findOne(id, { where: { deleted_at: null } })
       : undefined;
   }
 
-  public async findByIdWithDeleted(id: ObjectID | string) {
+  public async findByIdWithDeleted(id: ObjectID) {
     return id && isValidObjectId(id)
       ? await this.repository.findOne(id)
       : undefined;
@@ -61,6 +61,14 @@ export default class UserRepository implements IUserRepository {
 
   public async delete(user: User) {
     await this.repository.delete(user);
+  }
+
+  public async deleteByCompanyId(companyId: ObjectID) {
+    const users = await this.repository.find({
+      where: { company_id: { $eq: companyId } },
+    });
+
+    await this.repository.deleteMany(users);
   }
 
   public async deleteMany(users: User[]) {

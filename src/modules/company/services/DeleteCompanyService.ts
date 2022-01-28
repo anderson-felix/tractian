@@ -14,15 +14,10 @@ export class DeleteCompanyService {
     const company = await this.companyRepository.findById(id);
     if (!company) throw new LocaleError('companyNotFound');
 
-    const [, users, units] = await Promise.all([
-      this.companyRepository.delete(company),
-      this.userRepository.findAllByCompanyName(company.name),
-      this.unitRepository.findAllByCompanyName(company.name),
-    ]);
-
     await Promise.all([
-      this.userRepository.deleteMany(users),
-      this.unitRepository.deleteMany(units),
+      this.companyRepository.delete(company),
+      this.userRepository.deleteByCompanyId(company.id),
+      this.unitRepository.deleteByCompanyId(company.id),
     ]);
   }
 }

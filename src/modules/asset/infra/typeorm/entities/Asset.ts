@@ -1,11 +1,9 @@
 import { AssetStatusType } from '@modules/asset/interfaces/AssetStatusType';
-import { Unit } from '@modules/unit/infra/typeorm/entities/Unit';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
   ObjectID,
   ObjectIdColumn,
   UpdateDateColumn,
@@ -29,7 +27,10 @@ export class Asset {
   image: string | null;
 
   @Column({ default: null })
-  owner: string | null;
+  owner_ids: string[] | null;
+
+  @Column()
+  unit_id: ObjectID | string;
 
   @Column({ default: 'stopped' })
   status: AssetStatusType;
@@ -45,7 +46,4 @@ export class Asset {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  @ManyToOne(() => Unit)
-  unit: Unit;
 }

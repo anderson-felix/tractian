@@ -12,13 +12,12 @@ export class DeleteUnitService {
     const unit = await this.unitRepository.findById(id);
     if (!unit) throw new LocaleError('unitNotFound');
 
-    await this.unitRepository.delete(unit);
+    // TODO: Delete asset images
+    // TODO: Delete unit pictures if exists
 
-    const [, assets] = await Promise.all([
+    await Promise.all([
       this.unitRepository.delete(unit),
-      this.assetRepository.findAllByUnitName(unit.name),
+      this.assetRepository.deleteByUnitId(unit.id),
     ]);
-
-    await this.assetRepository.deleteMany(assets);
   }
 }

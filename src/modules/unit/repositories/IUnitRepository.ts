@@ -7,9 +7,10 @@ export default interface IUnitRepository {
   save(data: Unit): Promise<Unit>;
   saveMany(data: Unit[]): Promise<void>;
   findAll(): Promise<Unit[]>;
-  findAllByCompanyName(name: string): Promise<Unit[]>;
+  findByCompanyId(companyId: ObjectID | string): Promise<Unit[]>;
   findById(id: ObjectID | string): Promise<Unit | undefined>;
   findByIdWithDeleted(id: ObjectID | string): Promise<Unit | undefined>;
   delete(data: Unit): Promise<void>;
+  deleteByCompanyId(companyId: ObjectID | string): Promise<void>;
   deleteMany(data: Unit[]): Promise<void>;
 }

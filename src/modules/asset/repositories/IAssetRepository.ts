@@ -9,7 +9,9 @@ export default interface IAssetRepository {
   findAll(): Promise<Asset[]>;
   findAllByUnitName(name: string): Promise<Asset[]>;
   findById(id: ObjectID | string): Promise<Asset | undefined>;
+  findByUnitId(unit_id: ObjectID | string): Promise<Asset[]>;
   findByIdWithDeleted(id: ObjectID | string): Promise<Asset | undefined>;
   delete(data: Asset): Promise<void>;
+  deleteByUnitId(unit_id: string | ObjectID): Promise<void>;
   deleteMany(data: Asset[]): Promise<void>;
 }

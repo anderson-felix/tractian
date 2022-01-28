@@ -38,6 +38,6 @@ Build a CRUD where the `user` can register `companies`, `units`, `assets` and `u
 
 [x] - Criar CRUD do ativo;
 
-[ ] - Criar CRUD do proprietário;
+[x] - Criar CRUD do proprietário;
 
 [ ] - Criar fluxo para o storage de imagens;

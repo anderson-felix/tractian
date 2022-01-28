@@ -7,10 +7,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ObjectID,
-  ManyToOne,
 } from 'typeorm';
 import { RoleTypes } from '@modules/user/interfaces/RoleTypes';
-import { Company } from '@modules/company/infra/typeorm/entities/Company';
 
 @Entity({ name: 'user' })
 export class User {
@@ -38,6 +36,9 @@ export class User {
   @Column()
   phones: Phone[] | null;
 
+  @Column()
+  company_id: ObjectID | string;
+
   @DeleteDateColumn()
   deleted_at: Date | null;
 
@@ -46,7 +47,4 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  @ManyToOne(() => Company)
-  company: Company;
 }

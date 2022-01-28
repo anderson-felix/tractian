@@ -1,11 +1,9 @@
-import { Company } from '@modules/company/infra/typeorm/entities/Company';
 import { Address, Phone } from '@shared/interfaces';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
   ObjectID,
   ObjectIdColumn,
   UpdateDateColumn,
@@ -28,6 +26,9 @@ export class Unit {
   @Column({ default: null })
   phones: Phone[] | null;
 
+  @Column()
+  company_id: ObjectID | string;
+
   @DeleteDateColumn({ default: null })
   deleted_at: Date | null;
 
@@ -36,7 +37,4 @@ export class Unit {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  @ManyToOne(() => Company)
-  company: Company;
 }

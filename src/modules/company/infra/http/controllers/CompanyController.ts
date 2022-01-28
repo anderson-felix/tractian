@@ -22,7 +22,11 @@ export default class CompanyController {
   }
 
   static async show(req: Request, res: Response): Promise<Response> {
-    const showCompany = new ShowCompanyService(new CompanyRepository());
+    const showCompany = new ShowCompanyService(
+      new CompanyRepository(),
+      new UserRepository(),
+      new UnitRepository(),
+    );
 
     const company = await showCompany.execute(req.params.id);
 
@@ -38,11 +42,7 @@ export default class CompanyController {
   }
 
   static async update(req: Request, res: Response): Promise<Response> {
-    const updateCompany = new UpdateCompanyService(
-      new CompanyRepository(),
-      new UserRepository(),
-      new UnitRepository(),
-    );
+    const updateCompany = new UpdateCompanyService(new CompanyRepository());
 
     const company = await updateCompany.execute({ ...req.body });
 

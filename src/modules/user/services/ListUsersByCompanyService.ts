@@ -13,6 +13,7 @@ export class ListUsersByCompanyService {
   public async execute(companyId: string): Promise<User[]> {
     const company = await this.companyRepository.findById(companyId);
     if (!company) throw new LocaleError('companyNotFound');
-    return await this.userRepository.findAllByCompanyName(company.name);
+
+    return await this.userRepository.findByCompanyId(company.id);
   }
 }

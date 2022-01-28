@@ -1,5 +1,4 @@
 import { Address, Phone } from '@shared/interfaces';
-import { Company } from '@modules/company/infra/typeorm/entities/Company';
 import { RoleTypes } from '../interfaces/RoleTypes';
 
 export default interface ICreateUserDTO {
@@ -9,5 +8,5 @@ export default interface ICreateUserDTO {
   federal_document?: string;
   phones?: Phone[];
   address?: Address;
-  company: Company;
+  company_id: string;
 }

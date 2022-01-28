@@ -38,6 +38,12 @@ export default class AssetRepository implements IAssetRepository {
     });
   }
 
+  public async findByUnitId(unit_id: string) {
+    return await this.repository.find({
+      where: { unit_id: { $eq: unit_id } },
+    });
+  }
+
   public async findById(id: string) {
     return id && isValidObjectId(id)
       ? await this.repository.findOne(id, {
@@ -54,6 +60,14 @@ export default class AssetRepository implements IAssetRepository {
 
   public async delete(asset: Asset) {
     await this.repository.delete(asset);
+  }
+
+  public async deleteByUnitId(unit_id: string) {
+    const assets = await this.repository.find({
+      where: { unit_id: { $eq: unit_id } },
+    });
+
+    await this.repository.deleteMany(assets);
   }
 
   public async deleteMany(assets: Asset[]) {

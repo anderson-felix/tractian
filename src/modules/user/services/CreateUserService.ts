@@ -22,13 +22,13 @@ export class CreateUserService {
     private companyRepository: ICompanyRepository,
   ) {}
 
-  public async execute({ company_id, ...data }: IRequest): Promise<User> {
+  public async execute(data: IRequest): Promise<User> {
     const userSameEmail = await this.userRepository.findByEmail(data.email);
     if (userSameEmail) throw new LocaleError('emailAlreadyExists');
 
-    const company = await this.companyRepository.findById(company_id);
+    const company = await this.companyRepository.findById(data.company_id);
     if (!company) throw new LocaleError('companyNotFound');
 
-    return await this.userRepository.create({ ...data, company });
+    return await this.userRepository.create(data);
   }
 }

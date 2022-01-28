@@ -40,6 +40,12 @@ export default class OwnerRepository implements IOwnerRepository {
       : undefined;
   }
 
+  public async findByIds(ids: ObjectID[] | string[]) {
+    return await this.repository.findByIds(ids, {
+      where: { deleted_at: null },
+    });
+  }
+
   public async findByIdWithDeleted(id: ObjectID | string) {
     return id && isValidObjectId(id)
       ? await this.repository.findOne(id)

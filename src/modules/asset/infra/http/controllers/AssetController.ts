@@ -11,12 +11,14 @@ import {
 
 import AssetRepository from '@modules/asset/infra/typeorm/repositories/AssetRepository';
 import UnitRepository from '@modules/unit/infra/typeorm/repositories/UnitRepository';
+import OwnerRepository from '@modules/owner/infra/typeorm/repositories/OwnerRepository';
 
 export default class AssetController {
   static async create(req: Request, res: Response): Promise<Response> {
     const createAsset = new CreateAssetService(
       new AssetRepository(),
       new UnitRepository(),
+      new OwnerRepository(),
     );
 
     const asset = await createAsset.execute({ ...req.body });
@@ -25,7 +27,11 @@ export default class AssetController {
   }
 
   static async show(req: Request, res: Response): Promise<Response> {
-    const showAsset = new ShowAssetService(new AssetRepository());
+    const showAsset = new ShowAssetService(
+      new AssetRepository(),
+      new UnitRepository(),
+      new OwnerRepository(),
+    );
 
     const asset = await showAsset.execute(req.params.id);
 
@@ -52,7 +58,10 @@ export default class AssetController {
   }
 
   static async update(req: Request, res: Response): Promise<Response> {
-    const updateAsset = new UpdateAssetService(new AssetRepository());
+    const updateAsset = new UpdateAssetService(
+      new AssetRepository(),
+      new OwnerRepository(),
+    );
 
     const asset = await updateAsset.execute({ ...req.body });
 

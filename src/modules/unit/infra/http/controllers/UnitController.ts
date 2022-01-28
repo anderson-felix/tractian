@@ -26,7 +26,11 @@ export default class UnitController {
   }
 
   static async show(req: Request, res: Response): Promise<Response> {
-    const showUnit = new ShowUnitService(new UnitRepository());
+    const showUnit = new ShowUnitService(
+      new UnitRepository(),
+      new CompanyRepository(),
+      new AssetRepository(),
+    );
 
     const unit = await showUnit.execute(req.params.id);
 

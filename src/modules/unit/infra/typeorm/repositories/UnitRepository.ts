@@ -30,9 +30,9 @@ export default class UnitRepository implements IUnitRepository {
     return await this.repository.find({ where: { deleted_at: null } });
   }
 
-  public async findAllByCompanyName(name: string) {
+  public async findByCompanyId(companyId: string) {
     return await this.repository.find({
-      where: { 'company.name': { $eq: name } },
+      where: { company_id: { $eq: companyId } },
     });
   }
 
@@ -48,6 +48,14 @@ export default class UnitRepository implements IUnitRepository {
     return id && isValidObjectId(id)
       ? await this.repository.findOne(id)
       : undefined;
+  }
+
+  public async deleteByCompanyId(companyId: string) {
+    const assets = await this.repository.find({
+      where: { company_id: { $eq: companyId } },
+    });
+
+    await this.repository.deleteMany(assets);
   }
 
   public async delete(unit: Unit) {

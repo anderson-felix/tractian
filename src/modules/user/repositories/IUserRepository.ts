@@ -11,7 +11,8 @@ export default interface IUserRepository {
   findByIdWithDeleted(id: ObjectID | string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
   findAll(): Promise<User[]>;
-  findAllByCompanyName(company: string): Promise<User[]>;
+  findByCompanyId(companyId: ObjectID | string): Promise<User[]>;
   delete(user: User): Promise<void>;
+  deleteByCompanyId(companyId: ObjectID | string): Promise<void>;
   deleteMany(user: User[]): Promise<void>;
 }
