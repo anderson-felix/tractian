@@ -1,27 +1,27 @@
-import { Address } from '@shared/interfaces';
+import { Address, Phone } from '@shared/interfaces';
 import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
+  Column,
   ObjectIdColumn,
+  DeleteDateColumn,
+  CreateDateColumn,
   UpdateDateColumn,
   ObjectID,
 } from 'typeorm';
 
-@Entity({ name: 'company' })
-export class Company {
+@Entity({ name: 'owner' })
+export class Owner {
   @ObjectIdColumn()
   id: ObjectID;
 
-  @Column({ unique: true })
+  @Column()
   name: string;
 
   @Column()
-  federal_document?: string;
-
-  @Column()
   address: Address;
+
+  @Column({ default: null })
+  phones: Phone[] | null;
 
   @DeleteDateColumn({ default: null })
   deleted_at: Date | null;

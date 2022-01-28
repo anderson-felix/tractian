@@ -7,7 +7,7 @@ export class DeleteUserService {
 
   public async execute(id: string): Promise<void> {
     const user = await this.userRepository.findById(id);
-    if (!user) throw new LocaleError('emailAlreadyExists');
+    if (!user) throw new LocaleError('userNotFound');
 
     await this.userRepository.delete(user);
   }

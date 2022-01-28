@@ -7,6 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ObjectID,
+  ManyToOne,
 } from 'typeorm';
 import { RoleTypes } from '@modules/user/interfaces/RoleTypes';
 import { Company } from '@modules/company/infra/typeorm/entities/Company';
@@ -16,28 +17,28 @@ export class User {
   @ObjectIdColumn()
   id: ObjectID;
 
-  @Column({ nullable: false })
+  @Column()
   name: string;
 
-  @Column({ nullable: false })
+  @Column()
   email: string;
 
-  @Column({ nullable: false })
+  @Column()
   avatar: string | null;
 
-  @Column({ nullable: false, default: null })
+  @Column()
   federal_document: string | null;
 
-  @Column({ nullable: false })
+  @Column()
   role: RoleTypes;
 
-  @Column({ type: 'json', default: null })
+  @Column()
   address: Address | null;
 
-  @Column({ type: 'json', default: null })
+  @Column()
   phones: Phone[] | null;
 
-  @DeleteDateColumn({ default: null })
+  @DeleteDateColumn()
   deleted_at: Date | null;
 
   @CreateDateColumn()
@@ -46,6 +47,6 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Column(() => Company)
+  @ManyToOne(() => Company)
   company: Company;
 }

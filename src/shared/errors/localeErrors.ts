@@ -7,6 +7,7 @@ export type LocaleErrorType =
   | 'companyNotFound'
   | 'unitNotFound'
   | 'assetNotFound'
+  | 'ownerNotFound'
   | 'healthInvalid';
 
 export const localeErrorLanguage = <const>['pt', 'en'];
@@ -77,6 +78,13 @@ export const localeErrors: Record<LocaleErrorType, LocaleErrorObject> = {
     message: {
       pt: 'Ativo não encontrado',
       en: 'Asset not found',
+    },
+  },
+  ownerNotFound: {
+    status: 404,
+    message: {
+      pt: 'Proprietário não encontrado',
+      en: 'Owner not found',
     },
   },
   healthInvalid: {
