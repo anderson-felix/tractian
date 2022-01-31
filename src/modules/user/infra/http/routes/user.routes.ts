@@ -13,15 +13,27 @@ userRouter.post(
       company_id: Joi.string().required(),
       name: Joi.string().required(),
       email: Joi.string().email().required(),
+      avatar: Joi.string().default(null),
       role: Joi.string()
         .valid(...roleTypes)
         .required(),
-      federal_document: Joi.string().allow(null),
-      phones: Joi.array().items(Joi.object().keys(phoneSchema)).allow(null),
-      address: Joi.object().keys(addressSchema).allow(null),
+      federal_document: Joi.string().default(null),
+      phones: Joi.array().items(Joi.object().keys(phoneSchema)).default(null),
+      address: Joi.object().keys(addressSchema).default(null),
     },
   }),
   UserController.create,
+);
+
+userRouter.get(
+  '/avatar_upload_link',
+  celebrate({
+    [Segments.QUERY]: {
+      file_name: Joi.string().required(),
+      mime_type: Joi.string().required(),
+    },
+  }),
+  UserController.uploadLink,
 );
 
 userRouter.get(
@@ -57,6 +69,7 @@ userRouter.patch(
       federal_document: Joi.string().allow(null),
       phones: Joi.array().items(Joi.object().keys(phoneSchema)).allow(null),
       address: Joi.object().keys(addressSchema).allow(null),
+      avatar: Joi.string().allow(null),
     },
   }),
   UserController.update,

@@ -7,7 +7,6 @@ export class DeleteOwnerService {
   public async execute(id: string): Promise<void> {
     const owner = await this.ownerRepository.findById(id);
     if (!owner) throw new LocaleError('ownerNotFound');
-
     await this.ownerRepository.delete(owner);
   }
 }

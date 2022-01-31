@@ -12,6 +12,8 @@ import {
 import CompanyRepository from '@modules/company/infra/typeorm/repositories/CompanyRepository';
 import UnitRepository from '@modules/unit/infra/typeorm/repositories/UnitRepository';
 import AssetRepository from '@modules/asset/infra/typeorm/repositories/AssetRepository';
+import StorageProvider from '@shared/providers/StorageProvider/implementations/StorageProvider';
+import GetUploadLinkService from '@shared/services/Storage/GetUploadLinkService';
 
 export default class UnitController {
   static async create(req: Request, res: Response): Promise<Response> {
@@ -57,7 +59,10 @@ export default class UnitController {
   }
 
   static async update(req: Request, res: Response): Promise<Response> {
-    const updateUnit = new UpdateUnitService(new UnitRepository());
+    const updateUnit = new UpdateUnitService(
+      new UnitRepository(),
+      new StorageProvider(),
+    );
 
     const unit = await updateUnit.execute({ ...req.body });
 
@@ -68,10 +73,23 @@ export default class UnitController {
     const deleteUnit = new DeleteUnitService(
       new UnitRepository(),
       new AssetRepository(),
+      new StorageProvider(),
     );
 
     await deleteUnit.execute(req.params.id);
 
     return res.status(204).send();
+  }
+
+  static async uploadLink(req: Request, res: Response): Promise<Response> {
+    const getUploadLink = new GetUploadLinkService(new StorageProvider());
+    const { mime_type, file_name } = req.query;
+
+    const uploadLink = await getUploadLink.execute({
+      mime_type: mime_type as string,
+      file_name: file_name as string,
+    });
+
+    return res.json(uploadLink);
   }
 }

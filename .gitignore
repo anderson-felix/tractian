@@ -1,7 +1,16 @@
-node_modules
 
-yarn.lock
+#folders
+node_modules/
+dist/
+tmp/*
+build/
 
+#files
+.env
+*.lock
+*.log
+.vscode/
 ormconfig.json
 
-.env
+#exceptions
+!tmp/.gitkeep

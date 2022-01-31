@@ -7,13 +7,14 @@ import { LocaleError } from '@shared/errors/LocaleError';
 import { Address, Phone } from '@shared/interfaces';
 
 interface IRequest {
+  company_id: string;
   name: string;
   email: string;
+  avatar: string | null;
   role: RoleTypes;
-  federal_document?: string;
-  phones?: Phone[];
-  address?: Address;
-  company_id: string;
+  federal_document: string | null;
+  phones: Phone[] | null;
+  address: Address | null;
 }
 
 export class CreateUserService {

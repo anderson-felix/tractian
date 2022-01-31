@@ -24,7 +24,8 @@ export default class CompanyRepository implements ICompanyRepository {
   }
 
   public async findAll() {
-    return await this.repository.find({ where: { deleted_at: { $eq: null } } });
+    const a = await this.repository.find();
+    return a;
   }
 
   public async findAllWithDeleted() {

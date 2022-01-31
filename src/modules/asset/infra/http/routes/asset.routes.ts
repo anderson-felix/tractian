@@ -34,6 +34,17 @@ assetRouter.get(
 );
 
 assetRouter.get(
+  '/image_upload_link',
+  celebrate({
+    [Segments.QUERY]: {
+      file_name: Joi.string().required(),
+      mime_type: Joi.string().required(),
+    },
+  }),
+  AssetController.uploadLink,
+);
+
+assetRouter.get(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {

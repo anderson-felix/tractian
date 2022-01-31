@@ -1,5 +1,7 @@
 import { AssetStatusType } from '@modules/asset/interfaces/AssetStatusType';
+import { buildFileLocation } from '@shared/utils';
 import {
+  AfterLoad,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -27,10 +29,10 @@ export class Asset {
   image: string | null;
 
   @Column({ default: null })
-  owner_ids: string[] | null;
+  owner_ids: ObjectID[] | null;
 
   @Column()
-  unit_id: ObjectID | string;
+  unit_id: ObjectID;
 
   @Column({ default: 'stopped' })
   status: AssetStatusType;
@@ -46,4 +48,9 @@ export class Asset {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @AfterLoad()
+  buildLocation() {
+    if (this.image) this.image = buildFileLocation(this.image);
+  }
 }

@@ -1,5 +1,7 @@
 import { Address, Phone } from '@shared/interfaces';
+import { buildFileLocation } from '@shared/utils';
 import {
+  AfterLoad,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -27,7 +29,7 @@ export class Unit {
   phones: Phone[] | null;
 
   @Column()
-  company_id: ObjectID | string;
+  company_id: ObjectID;
 
   @DeleteDateColumn({ default: null })
   deleted_at: Date | null;
@@ -37,4 +39,9 @@ export class Unit {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @AfterLoad()
+  buildLocation() {
+    if (this.picture) this.picture = buildFileLocation(this.picture);
+  }
 }

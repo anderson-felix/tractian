@@ -33,6 +33,17 @@ unitRouter.get(
 );
 
 unitRouter.get(
+  '/picture_upload_link',
+  celebrate({
+    [Segments.QUERY]: {
+      file_name: Joi.string().required(),
+      mime_type: Joi.string().required(),
+    },
+  }),
+  UnitController.uploadLink,
+);
+
+unitRouter.get(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {

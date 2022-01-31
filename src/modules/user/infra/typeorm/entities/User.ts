@@ -7,8 +7,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ObjectID,
+  AfterLoad,
 } from 'typeorm';
 import { RoleTypes } from '@modules/user/interfaces/RoleTypes';
+import { buildFileLocation } from '@shared/utils';
 
 @Entity({ name: 'user' })
 export class User {
@@ -37,7 +39,7 @@ export class User {
   phones: Phone[] | null;
 
   @Column()
-  company_id: ObjectID | string;
+  company_id: ObjectID;
 
   @DeleteDateColumn()
   deleted_at: Date | null;
@@ -47,4 +49,9 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @AfterLoad()
+  buildLocation() {
+    if (this.avatar) this.avatar = buildFileLocation(this.avatar);
+  }
 }

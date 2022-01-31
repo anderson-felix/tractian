@@ -2,15 +2,16 @@ import IAssetRepository from '@modules/asset/repositories/IAssetRepository';
 import IOwnerRepository from '@modules/owner/repositories/IOwnerRepository';
 import IUnitRepository from '@modules/unit/repositories/IUnitRepository';
 import { LocaleError } from '@shared/errors/LocaleError';
+import { ObjectID } from 'typeorm';
 import { Asset } from '../infra/typeorm/entities/Asset';
 
 interface IRequest {
   name: string;
   description: string;
   image: string | null;
-  owner_ids: string[] | null;
+  owner_ids: ObjectID[] | null;
   model: string;
-  unit_id: string;
+  unit_id: ObjectID;
 }
 
 export class CreateAssetService {

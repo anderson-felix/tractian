@@ -6,6 +6,7 @@ import express from 'express';
 import cors from 'cors';
 import { errors } from 'celebrate';
 
+import uploadConfig from '@config/upload';
 import { logger } from '@shared/utils';
 import routes from './routes';
 import { getClientLanguage } from './middlewares/getClientLanguage';
@@ -18,6 +19,8 @@ const server = express();
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(cors());
+
+server.use('/files', express.static(uploadConfig.directory));
 
 server.use(getClientLanguage);
 server.use(routes);

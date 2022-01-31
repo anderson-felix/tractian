@@ -11,6 +11,8 @@ import {
 
 import CompanyRepository from '@modules/company/infra/typeorm/repositories/CompanyRepository';
 import UserRepository from 'modules/user/infra/typeorm/repositories/UserRepository';
+import GetUploadLinkService from '@shared/services/Storage/GetUploadLinkService';
+import StorageProvider from '@shared/providers/StorageProvider/implementations/StorageProvider';
 
 export default class UserController {
   static async create(req: Request, res: Response): Promise<Response> {
@@ -52,7 +54,10 @@ export default class UserController {
   }
 
   static async update(req: Request, res: Response): Promise<Response> {
-    const updateUser = new UpdateUserService(new UserRepository());
+    const updateUser = new UpdateUserService(
+      new UserRepository(),
+      new StorageProvider(),
+    );
 
     const user = await updateUser.execute({ ...req.body });
 
@@ -60,10 +65,25 @@ export default class UserController {
   }
 
   static async delete(req: Request, res: Response): Promise<Response> {
-    const deleteUser = new DeleteUserService(new UserRepository());
+    const deleteUser = new DeleteUserService(
+      new UserRepository(),
+      new StorageProvider(),
+    );
 
     await deleteUser.execute(req.params.id);
 
     return res.status(204).send();
+  }
+
+  static async uploadLink(req: Request, res: Response): Promise<Response> {
+    const getUploadLink = new GetUploadLinkService(new StorageProvider());
+    const { mime_type, file_name } = req.query;
+
+    const uploadLink = await getUploadLink.execute({
+      mime_type: mime_type as string,
+      file_name: file_name as string,
+    });
+
+    return res.json(uploadLink);
   }
 }

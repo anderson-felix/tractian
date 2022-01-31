@@ -8,7 +8,10 @@ export type LocaleErrorType =
   | 'unitNotFound'
   | 'assetNotFound'
   | 'ownerNotFound'
-  | 'healthInvalid';
+  | 'healthInvalid'
+  | 'fileNameRequired'
+  | 'contentTypeRequired'
+  | 'tokenExpired';
 
 export const localeErrorLanguage = <const>['pt', 'en'];
 
@@ -92,6 +95,27 @@ export const localeErrors: Record<LocaleErrorType, LocaleErrorObject> = {
     message: {
       pt: 'A saúde deve estar entre 0% e 100%',
       en: 'Health must be between 0% and 100%',
+    },
+  },
+  fileNameRequired: {
+    status: 400,
+    message: {
+      pt: 'O nome do arquivo é obrigatório',
+      en: 'The file name is required',
+    },
+  },
+  contentTypeRequired: {
+    status: 400,
+    message: {
+      pt: 'O tipo do arquivo é obrigatório',
+      en: 'The file content type is required',
+    },
+  },
+  tokenExpired: {
+    status: 403,
+    message: {
+      pt: 'Token expirado',
+      en: 'Token expired',
     },
   },
 };

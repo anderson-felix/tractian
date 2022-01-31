@@ -27,17 +27,3 @@ Build a CRUD where the `user` can register `companies`, `units`, `assets` and `u
 
 - Typescript
 - Design Standard (Clean Code/Clean Architecture).
-
----
-
-[x] - Criar CRUD da empresa;
-
-[x] - Criar CRUD do usuário;
-
-[x] - Criar CRUD da unidade;
-
-[x] - Criar CRUD do ativo;
-
-[x] - Criar CRUD do proprietário;
-
-[ ] - Criar fluxo para o storage de imagens;

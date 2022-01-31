@@ -1,25 +1,29 @@
 import IOwnerRepository from '@modules/owner/repositories/IOwnerRepository';
 import { LocaleError } from '@shared/errors/LocaleError';
+import IStorageProvider from '@shared/providers/StorageProvider/models/IStorageProvider';
+import { getFileNameFromUrl } from '@shared/utils/getFileNameFromUrl';
 import { updateEntity } from '@shared/utils/updateEntity';
+import { ObjectID } from 'typeorm';
 import { Asset } from '../infra/typeorm/entities/Asset';
 import { AssetStatusType } from '../interfaces/AssetStatusType';
 import IAssetRepository from '../repositories/IAssetRepository';
 
 interface IRequest {
-  id: string;
+  id: ObjectID;
   name?: string;
   description?: string;
   model?: string;
-  image?: string;
+  image?: string | null;
   status?: AssetStatusType;
   health?: number;
-  owner_ids?: string[];
+  owner_ids?: ObjectID[];
 }
 
 export class UpdateAssetService {
   constructor(
     private assetRepository: IAssetRepository,
     private ownerRepository: IOwnerRepository,
+    private storageProvider: IStorageProvider,
   ) {}
 
   public async execute({ id, ...data }: IRequest): Promise<Asset> {
@@ -35,9 +39,10 @@ export class UpdateAssetService {
         throw new LocaleError('ownerNotFound');
     }
 
-    if (asset.image && data.image) {
-      // TODO: remove images on storage driver
-    }
+    if (asset.image && data.image !== undefined)
+      await this.storageProvider.deleteFile({
+        fileName: getFileNameFromUrl(asset.image),
+      });
 
     updateEntity(asset, data);
 
