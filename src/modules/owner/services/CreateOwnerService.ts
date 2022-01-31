@@ -1,10 +1,12 @@
 import { Address, Phone } from '@shared/interfaces';
+import { ObjectID } from 'typeorm';
 import { Owner } from '../infra/typeorm/entities/Owner';
 import IOwnerRepository from '../repositories/IOwnerRepository';
 
 interface IRequest {
   name: string;
   address: Address;
+  company_id: ObjectID;
   phones?: Phone[];
 }
 

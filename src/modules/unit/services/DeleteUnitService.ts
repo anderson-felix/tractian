@@ -26,9 +26,7 @@ export class DeleteUnitService {
       });
     }
 
-    const [assets] = await Promise.all([
-      this.assetRepository.findByUnitId(unit.id),
-    ]);
+    const assets = await this.assetRepository.findByUnitId(unit.id.toString());
 
     await Promise.all([
       this.unitRepository.delete(unit),

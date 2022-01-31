@@ -14,6 +14,6 @@ export class ListUsersByCompanyService {
     const company = await this.companyRepository.findById(companyId);
     if (!company) throw new LocaleError('companyNotFound');
 
-    return await this.userRepository.findByCompanyId(company.id);
+    return await this.userRepository.findByCompanyId(companyId);
   }
 }

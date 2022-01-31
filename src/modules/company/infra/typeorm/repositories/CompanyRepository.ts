@@ -47,6 +47,6 @@ export default class CompanyRepository implements ICompanyRepository {
   }
 
   public async delete(company: Company) {
-    await this.repository.delete(company);
+    await this.repository.delete(company.id);
   }
 }

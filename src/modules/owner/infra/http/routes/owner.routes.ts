@@ -9,6 +9,7 @@ ownerRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
+      company_id: Joi.string().required(),
       name: Joi.string().required(),
       phones: Joi.array().items(Joi.object().keys(phoneSchema)).default(null),
       address: Joi.object().keys(addressSchema).required(),

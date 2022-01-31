@@ -13,6 +13,6 @@ export class ListAssetsByUnitService {
     const unit = await this.unitRepository.findById(unitId);
     if (!unit) throw new LocaleError('unitNotFound');
 
-    return await this.assetRepository.findByUnitId(unit.id);
+    return await this.assetRepository.findByUnitId(unit.id.toString());
   }
 }

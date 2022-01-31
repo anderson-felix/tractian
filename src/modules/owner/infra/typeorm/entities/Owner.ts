@@ -23,6 +23,9 @@ export class Owner {
   @Column({ default: null })
   phones: Phone[] | null;
 
+  @Column()
+  company_id: ObjectID;
+
   @DeleteDateColumn({ default: null })
   deleted_at: Date | null;
 

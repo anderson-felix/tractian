@@ -60,7 +60,7 @@ export default class UserRepository implements IUserRepository {
   }
 
   public async delete(user: User) {
-    await this.repository.delete(user);
+    await this.repository.delete(user.id);
   }
 
   public async deleteByCompanyId(companyId: ObjectID) {

@@ -32,7 +32,7 @@ export default class UnitRepository implements IUnitRepository {
 
   public async findByCompanyId(companyId: string) {
     return await this.repository.find({
-      where: { company_id: { $eq: companyId } },
+      where: { company_id: companyId },
     });
   }
 
@@ -59,7 +59,7 @@ export default class UnitRepository implements IUnitRepository {
   }
 
   public async delete(unit: Unit) {
-    await this.repository.delete(unit);
+    await this.repository.delete(unit.id);
   }
 
   public async deleteMany(units: Unit[]) {

@@ -59,7 +59,7 @@ export default class AssetRepository implements IAssetRepository {
   }
 
   public async delete(asset: Asset) {
-    await this.repository.delete(asset);
+    await this.repository.delete(asset.id);
   }
 
   public async deleteByUnitId(unit_id: string) {

@@ -11,6 +11,7 @@ import {
   UpdateCompanyService,
   DeleteCompanyService,
 } from '@modules/company/services';
+import OwnerRepository from '@modules/owner/infra/typeorm/repositories/OwnerRepository';
 
 export default class CompanyController {
   static async create(req: Request, res: Response): Promise<Response> {
@@ -54,6 +55,7 @@ export default class CompanyController {
       new CompanyRepository(),
       new UserRepository(),
       new UnitRepository(),
+      new OwnerRepository(),
     );
 
     await deleteCompany.execute(req.params.id);

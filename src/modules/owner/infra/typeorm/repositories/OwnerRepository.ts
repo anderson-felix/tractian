@@ -18,12 +18,12 @@ export default class OwnerRepository implements IOwnerRepository {
     return this.repository.save(user);
   }
 
-  public async save(user: Owner) {
-    return await this.repository.save(user);
+  public async save(owner: Owner) {
+    return await this.repository.save(owner);
   }
 
-  public async saveMany(users: Owner[]) {
-    await this.repository.save(users);
+  public async saveMany(owners: Owner[]) {
+    await this.repository.save(owners);
   }
 
   public async findAll() {
@@ -40,6 +40,12 @@ export default class OwnerRepository implements IOwnerRepository {
       : undefined;
   }
 
+  public async findByCompanyId(companyId: ObjectID | string) {
+    return await this.repository.find({
+      where: { company_id: { $eq: companyId } },
+    });
+  }
+
   public async findByIds(ids: ObjectID[] | string[]) {
     return await this.repository.findByIds(ids, {
       where: { deleted_at: null },
@@ -52,11 +58,11 @@ export default class OwnerRepository implements IOwnerRepository {
       : undefined;
   }
 
-  public async delete(user: Owner) {
-    await this.repository.delete(user);
+  public async delete(owner: Owner) {
+    await this.repository.delete(owner.id);
   }
 
-  public async deleteMany(users: Owner[]) {
-    await this.repository.deleteMany(users);
+  public async deleteMany(owners: Owner[]) {
+    await this.repository.deleteMany(owners);
   }
 }

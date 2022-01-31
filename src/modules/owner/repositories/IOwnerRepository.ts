@@ -8,6 +8,7 @@ export default interface IOwnerRepository {
   save(user: Owner): Promise<Owner>;
   saveMany(user: Owner[]): Promise<void>;
   findById(id: ObjectID | string): Promise<Owner | undefined>;
+  findByCompanyId(id: ObjectID | string): Promise<Owner[]>;
   findByIds(ids: ObjectID[] | string[]): Promise<Owner[]>;
   findByIdWithDeleted(id: ObjectID | string): Promise<Owner | undefined>;
   findAll(): Promise<Owner[]>;
