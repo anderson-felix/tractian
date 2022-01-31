@@ -9,10 +9,14 @@ import {
 } from '@modules/owner/services';
 
 import OwnerRepository from '@modules/owner/infra/typeorm/repositories/OwnerRepository';
+import CompanyRepository from '@modules/company/infra/typeorm/repositories/CompanyRepository';
 
 export default class OwnerController {
   static async create(req: Request, res: Response): Promise<Response> {
-    const createOwner = new CreateOwnerService(new OwnerRepository());
+    const createOwner = new CreateOwnerService(
+      new OwnerRepository(),
+      new CompanyRepository(),
+    );
 
     const owner = await createOwner.execute({ ...req.body });
 
